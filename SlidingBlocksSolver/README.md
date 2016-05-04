@@ -1,7 +1,7 @@
 '''AStar.py
 TianYang Jin, Sheng Chen
 The problem being formulated is Sliding Blocks of 10 pieces. The pieces consists of four types, 1x1, 2x1, 1x2, and 2x2.
-Here is a rough drawing of the Initial state and a representation of the goal state:
+Here is a rough drawing of the Initial state and a representation of the goal state: <br />
 1 2 2 7                            . . . .
 1 2 2 8                            . . . .
 3 5 5 9            ------->        . . . .
