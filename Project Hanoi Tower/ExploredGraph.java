@@ -63,12 +63,10 @@ public class ExploredGraph {
 	}
 
 	public int nvertices() {
-		// TODO: Return size of collection of explored vertices
 		return Ve.size();
 	}
 
 	public int nedges() {
-		// TODO: Return size of collection of explored edges
 		return Ee.size();
 	}
 
@@ -78,6 +76,7 @@ public class ExploredGraph {
 	// use stack as data structure to determine the sequence
 	// Records the visited vertex and edge, and add the vertex as the key, and its indegree as the value to the hashmap
 	public void dfs(Vertex vi, Vertex vj) {
+      System.out.println(" ------ Running DFS Search: ------ ");
 		initialize();
 		ifBfs = false;
 		Stack<Vertex> vStack = new Stack<Vertex>();
@@ -112,32 +111,33 @@ public class ExploredGraph {
 	// us queue as data structure to determine the sequence
 	// Records the visited vertex and edge, and add the vertex as the key, and its indegree as the value to the hashmap
 	public void bfs(Vertex vi, Vertex vj) {
-	initialize();
-	ifBfs = true;
-	Queue<Vertex> vQueue = new LinkedList<Vertex>();
-	vQueue.add(vi);
-	Ve.add(vi);
-	while(!vQueue.isEmpty()){
-		Vertex next = vQueue.remove();
-		for(int i = 0; i < 6; i++){
-			Operator op = operators.get(i);
-			if ((boolean)op.getPrecondition().apply(next)){
-				Vertex start = new Vertex(next.toString());
-				Vertex u = (Vertex)op.getTransition().apply(start);
-				if (! Ve.contains(u)){
-					Ve.add(u);
-					vQueue.add(u);
-					Edge e = new Edge(next, u);
-					Ee.add(e);
-					if(!map.containsKey(u)){
-						LinkedList<Edge> path = new LinkedList<Edge>();
-						map.put(u, path);
-					}
-					map.get(u).add(e);	
-				}
-			}
-		}
-	}
+      System.out.println(" ------ Running DFS Search: ------ ");
+	   initialize();
+	   ifBfs = true;
+	   Queue<Vertex> vQueue = new LinkedList<Vertex>();
+	   vQueue.add(vi);
+	   Ve.add(vi);
+	   while(!vQueue.isEmpty()){
+	   	Vertex next = vQueue.remove();
+	   	for(int i = 0; i < 6; i++){
+	   		Operator op = operators.get(i);
+	   		if ((boolean)op.getPrecondition().apply(next)){
+	   			Vertex start = new Vertex(next.toString());
+	   			Vertex u = (Vertex)op.getTransition().apply(start);
+	   			if (! Ve.contains(u)){
+	   				Ve.add(u);
+	   				vQueue.add(u);
+	   				Edge e = new Edge(next, u);
+	   				Ee.add(e);
+	   				if(!map.containsKey(u)){
+	   					LinkedList<Edge> path = new LinkedList<Edge>();
+	   					map.put(u, path);
+	   				}
+	   				map.get(u).add(e);	
+	   			}
+	   		}
+	   	}
+	   }
 }
 	
 	// retrieves the path to the goal vertex after call a search algorithm
@@ -158,10 +158,12 @@ public class ExploredGraph {
 				path.add(prev);
 				vj = prev;
 		}
-		for(int i = path.size() - 1; i >= 0; i--){
+		for(int i = path.size() - 1; i > 0; i--){
 			System.out.print(count + ": " + path.get(i).toString() + "--->");
 			count++;
 		}
+      System.out.println(count + ": " + path.get(0).toString() + ".");
+      System.out.println("Shortest Path Found, Path length = " + path.size());
 		System.out.println();
 		return path;
 		
@@ -199,9 +201,9 @@ public class ExploredGraph {
 		Vertex v1 = eg.new Vertex("[[],[],[4,3,2,1]]");
 		eg.bfs(v0,v1);
 		eg.retrievePath(v1);
-		eg.dfs(v0,v1);
-		eg.retrievePath(v1);
-		eg.shortestPath(v0, v1);
+		// eg.dfs(v0,v1);
+		// eg.retrievePath(v1);
+		// eg.shortestPath(v0, v1);
 		
 	}
 
@@ -325,7 +327,6 @@ public class ExploredGraph {
 		}
 
 		public String toString() {
-			// TODO: return a String like "vi -> vj"
 			return vi.toString() + " -> " + vj.toString();
 		
 			
